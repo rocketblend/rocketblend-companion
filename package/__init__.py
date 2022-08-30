@@ -5,13 +5,9 @@ bl_info = {
 	'description': 'Various tweaks to work with RocketBlend',
 	'author': 'lazercube',
 	'license': 'GPL',
-	'deps': '',
 	'version': (0, 1, 0),
 	'blender': (2, 83, 0),
 	'location': 'RocketBlend > Tools > Core',
-	'warning': '',
-	'link': '',
-	'support': 'COMMUNITY',
 	'category': 'RocketBlend'
 	}
 
@@ -24,11 +20,11 @@ if bl_info['blender'] > bpy.app.version:
 from .operators import example
 
 classes = [
-	ObjectMoveX,
+	example.ObjectMoveX,
 ]
 
 def menu_func(self, context):
-    self.layout.operator(ObjectMoveX.bl_idname)
+     self.layout.operator(example.ObjectMoveX.bl_idname)
 
 def register():
     for cls in classes:
@@ -38,10 +34,14 @@ def register():
             log.warning('{} is already registered, now unregister and retry... '.format(cls))
             bpy.utils.unregister_class(cls)
             bpy.utils.register_class(cls)
+    bpy.types.VIEW3D_MT_object.append(menu_func)  # Adds the new operator to an existing menu.
 
 def unregister():
-    for cls in classes:
+    classes_reverse = classes
+    classes_reverse.reverse()
+    for cls in classes_reverse:
 	    bpy.utils.unregister_class(cls)
+    bpy.types.VIEW3D_MT_object.remove(menu_func)
 
 if __name__ == "__main__":
 	register()

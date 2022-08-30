@@ -18,21 +18,3 @@ class ObjectMoveX(Operator):
             obj.location.x += 1.0
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
-
-classes = [
-	ObjectMoveX,
-]
-
-def menu_func(self, context):
-    self.layout.operator(ObjectMoveX.bl_idname)
-
-def register():
-    try:
-        bpy.utils.register_class(ObjectMoveX)
-    except ValueError as e:
-        log.warning('{} is already registered, now unregister and retry... '.format(ObjectMoveX))
-        bpy.utils.unregister_class(ObjectMoveX)
-        bpy.utils.register_class(ObjectMoveX)
-
-def unregister():
-    bpy.utils.unregister_class(ObjectMoveX)

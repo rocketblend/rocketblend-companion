@@ -1,5 +1,1 @@
-from . import example
-
-classes = [
-	ObjectMoveX,
-]
+__all__ = ['example']
