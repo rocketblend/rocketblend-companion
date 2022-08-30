@@ -1,5 +1,5 @@
 # Rocketblend Package
 
-Main blender package for Rocketblend
+Blender addon to aid working with RocketBlend.
 
 ## Work In Progress
