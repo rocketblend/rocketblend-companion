@@ -10,8 +10,8 @@ from . import preference
 class option(PropertyGroup):
     addon: StringProperty(default=addon.name)
 
-class install(PropertyGroup):
-    install: StringProperty(default="unknown")
+class build(PropertyGroup):
+    build: StringProperty(default="unknown")
 
 class config(PropertyGroup):
     build: StringProperty(
@@ -26,7 +26,7 @@ class config(PropertyGroup):
 
 classes = [
     option,
-    install,
+    build,
     config
 ]
 
@@ -35,13 +35,13 @@ def register():
         register_class(cls)
 
     bpy.types.WindowManager.rkc = PointerProperty(type=option)
-    bpy.types.WindowManager.rki = PointerProperty(type=install)
+    bpy.types.WindowManager.rkb = PointerProperty(type=build)
     bpy.types.WindowManager.rkf = PointerProperty(type=config)
 
 
 def unregister():
     del bpy.types.WindowManager.rkf
-    del bpy.types.WindowManager.rki
+    del bpy.types.WindowManager.rkb
     del bpy.types.WindowManager.rkc
 
     for cls in reversed(classes):
