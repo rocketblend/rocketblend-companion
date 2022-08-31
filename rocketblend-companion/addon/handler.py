@@ -1,13 +1,15 @@
 import bpy
 
+from pathlib import Path
 from bpy.app.handlers import persistent
 
 from . import utility
 
 @persistent
-def build_load_handler(_):
-    data = utility.load_build_json(bpy.app.binary_path)
-    bpy.context.window_manager.rkf.build = data.get("build", "unknown")
+def current_install_load_handler(_):
+    install_path = utility.load_build_json(Path(bpy.app.binary_path).resolve().parent.parent)
+    data = {}
+    bpy.context.window_manager.rkb.build = data.get("build", "unknown")
 
 @persistent
 def rocketfile_load_handler(_):
