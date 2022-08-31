@@ -1,5 +1,5 @@
 import bpy
-from . import panel, property, handler, utility
+from . import panel, operator, property, handler, utility
 
 def register():
     property.preference.register()

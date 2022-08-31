@@ -1,6 +1,6 @@
 import os
 
-from ..utility import load_json, save_json
+from ..utility.json import load_json, save_json
 
 ROCKET_FILE = "rocketfile.json"
 BUILD_CONFIG = "build.json"
