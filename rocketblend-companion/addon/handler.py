@@ -22,4 +22,4 @@ def rocketfile_load_handler(_) -> None:
 @persistent
 def rocketfile_save_handler(_) -> None:
     rocketfile = bpy.context.window_manager.rkf
-    rocketblend.save_rocketfile_json(bpy.path.abspath("//"), rocketfile.build, rocketfile.args)
+    utility.save_rocketfile_json(bpy.path.abspath("//"), rocketfile.build, rocketfile.args)

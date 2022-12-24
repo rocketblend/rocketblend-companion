@@ -2,7 +2,7 @@ import bpy
 from . import panel, operator, property, handler
 
 def register():
-    property.preference.register()
+    # property.preference.register()
     property.register()
 
     operator.register()
@@ -21,4 +21,4 @@ def unregister():
     operator.unregister()
 
     property.unregister()
-    property.preference.unregister()
+    # property.preference.unregister()
