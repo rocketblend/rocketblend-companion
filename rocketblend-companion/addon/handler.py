@@ -3,24 +3,24 @@ import bpy
 from pathlib import Path
 from bpy.app.handlers import persistent
 
-from . import utility
+from .. import rocketblend
 
 @persistent
-def current_build_load_handler(_):
-    data = utility.load_build_json(Path(bpy.app.binary_path).resolve().parent.parent)
-    bpy.context.window_manager.rkb.build = data.get("reference", "unknown")
+def build_load_handler(_) -> None:
+    build = rocketblend.load_build_json(Path(bpy.app.binary_path).resolve().parent.parent)
+    bpy.context.window_manager.rkb.build = build
 
 @persistent
-def rocketfile_load_handler(_):
-    data = utility.load_rocketfile_json(bpy.path.abspath("//"))
-    default = bpy.context.window_manager.rkb.build
-    bpy.context.window_manager.rkf.build = data.get("build", default)
-    bpy.context.window_manager.rkf.args = data.get("args","")
+def rocketfile_load_handler(_) -> None:
+    rocketfile = rocketblend.load_rocketfile_json(bpy.path.abspath("//"))
+    build = bpy.context.window_manager.rkb
+
+    if not rocketfile.build:
+        rocketfile.build = build.reference
+
+    bpy.context.window_manager.rkf = rocketfile
 
 @persistent
-def rocketfile_save_handler(_):
+def rocketfile_save_handler(_) -> None:
     rocketfile = bpy.context.window_manager.rkf
-    utility.save_rocketfile_json(
-        bpy.path.abspath("//"),
-        rocketfile.build,
-        rocketfile.launchArgs)
+    rocketblend.save_rocketfile_json(bpy.path.abspath("//"), rocketfile)
