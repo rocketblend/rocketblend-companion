@@ -1,4 +1,3 @@
-
 from bpy.utils import register_class, unregister_class
 
 from . import project

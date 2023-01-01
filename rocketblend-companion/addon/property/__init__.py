@@ -11,7 +11,8 @@ class option(PropertyGroup):
     addon: StringProperty(default=addon.name)
 
 class build(PropertyGroup):
-    build: StringProperty(default="unknown")
+    reference: StringProperty(default="")
+    args: StringProperty(default="")
 
 class config(PropertyGroup):
     build: StringProperty(
@@ -19,7 +20,7 @@ class config(PropertyGroup):
         description="Blender verison to use. Requires restart to take effect."
     )
 
-    launchArgs: StringProperty(
+    args: StringProperty(
         name = "Launch args",
         description = "Define a launcher arguments to be run when project is launched"
     )

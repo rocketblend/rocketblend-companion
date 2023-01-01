@@ -14,7 +14,7 @@ class RKB_PT_panel(Panel):
         rocketfile = context.window_manager.rkf
         layout = self.layout
         layout.prop(rocketfile, "build")
-        layout.prop(rocketfile, "launchArgs")
+        layout.prop(rocketfile, "args")
 
 classes = [
     RKB_PT_panel,
