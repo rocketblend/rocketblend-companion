@@ -6,3 +6,5 @@
 [![GitHub](https://img.shields.io/github/license/rocketblend-companion/rocketblend)](https://github.com/rocketblend/rocketblend-companion/blob/master/LICENSE)
 
 Blender addon to aid working with RocketBlend.
+
+## Work in progress
