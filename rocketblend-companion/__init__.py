@@ -6,9 +6,9 @@ from bpy.app.handlers import persistent
 bl_info = {
 	'name': 'RocketBlend Companion',
 	'description': 'Various tools to aid working with RocketBlend',
-	'author': 'lazercube',
+	'author': 'RocketBlend',
 	'license': 'GPL',
-	'version': (0, 1, 0),
+	'version': (0, 1, 1),
 	'blender': (2, 83, 0),
 	'location': 'System > RocketBlend > Core',
 	'category': 'System'
