@@ -16,4 +16,6 @@ class RKB_OT_setup(bpy.types.Operator):
         if reference != build:
             self.report({'ERROR'}, "This project is not compatible with the current build (RocketBlend)")
 
+        # TODO: Refresh packages
+
         return {'FINISHED'}
