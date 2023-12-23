@@ -7,43 +7,33 @@ from ... utility import addon
 
 from . import preference
 
-class option(PropertyGroup):
-    addon: StringProperty(default=addon.name)
+class runtime(PropertyGroup):
+    build: StringProperty(
+        name="Build",
+        default="Current build."
+    )
 
-class build(PropertyGroup):
-    reference: StringProperty(default="")
-    args: StringProperty(default="")
-
-class config(PropertyGroup):
+class project(PropertyGroup):
     build: StringProperty(
         name="Build",
         description="Blender verison to use. Requires restart to take effect."
     )
 
-    args: StringProperty(
-        name = "Launch args",
-        description = "Define a launcher arguments to be run when project is launched"
-    )
-
 classes = [
-    option,
-    build,
-    config
+    runtime,
+    project
 ]
 
 def register():
     for cls in classes:
         register_class(cls)
 
-    bpy.types.WindowManager.rkc = PointerProperty(type=option)
-    bpy.types.WindowManager.rkb = PointerProperty(type=build)
-    bpy.types.WindowManager.rkf = PointerProperty(type=config)
-
+    bpy.types.WindowManager.rkb = PointerProperty(type=runtime)
+    bpy.types.WindowManager.rkf = PointerProperty(type=project)
 
 def unregister():
     del bpy.types.WindowManager.rkf
     del bpy.types.WindowManager.rkb
-    del bpy.types.WindowManager.rkc
 
     for cls in reversed(classes):
         unregister_class(cls)

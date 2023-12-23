@@ -10,10 +10,10 @@ class RKB_OT_setup(bpy.types.Operator):
     bl_label = "Setup"
 
     def execute(self, context):
-        reference = bpy.context.window_manager.rkb.reference
-        build = bpy.context.window_manager.rkf.build
+        runtime_build = bpy.context.window_manager.rkb.build
+        project_build = bpy.context.window_manager.rkf.build
 
-        if reference != build:
+        if runtime_build != project_build:
             self.report({'ERROR'}, "This project is not compatible with the current build (RocketBlend)")
 
         # TODO: Refresh packages
