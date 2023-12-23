@@ -7,9 +7,11 @@ classes = [
     save.RKB_OT_save,
 ]
 
+
 def register():
     for cls in classes:
         register_class(cls)
+
 
 def unregister():
     for cls in reversed(classes):

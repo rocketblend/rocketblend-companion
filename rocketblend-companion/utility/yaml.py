@@ -2,6 +2,7 @@ import os
 import yaml
 from typing import Any, Dict, Optional
 
+
 def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
     """
     Load a YAML file from the given path.
@@ -12,7 +13,7 @@ def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
     """
     try:
         if os.path.exists(path):
-            with open(path, 'r') as yaml_data:
+            with open(path, "r") as yaml_data:
                 data = yaml.safe_load(yaml_data)
                 if object_hook:
                     return object_hook(data)
@@ -24,6 +25,7 @@ def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
 
     return {}
 
+
 def save_yaml(path: str, data: Dict) -> bool:
     """
     Save a dictionary to a YAML file.
@@ -33,7 +35,7 @@ def save_yaml(path: str, data: Dict) -> bool:
     :return: True if the operation was successful, False otherwise.
     """
     try:
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             yaml.dump(data, f)
         return True
     except Exception as e:

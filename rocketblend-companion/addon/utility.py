@@ -9,7 +9,7 @@ from . import (
     RocketFile,
     Build,
     Addon,
-    RocketBlendFeatures
+    RocketBlendFeatures,
 )
 
 PROJECT_CONFIG_FILE = "rocketfile.yaml"
@@ -19,9 +19,8 @@ ROCKETBLEND_APP_NAME = "rocketblend"
 ROCKETBLEND_CONFIG_FILE = "settings.json"
 
 
-def load_rocketblend_config(
-        dev_mode: bool = False) -> Optional[RocketBlendConfig]:
-    user_config_dir = os.path.expanduser('~/.config')
+def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfig]:
+    user_config_dir = os.path.expanduser("~/.config")
     app_dir = os.path.join(user_config_dir, ROCKETBLEND_APP_NAME)
     if dev_mode:
         app_dir = os.path.join(app_dir, "dev")
@@ -31,12 +30,12 @@ def load_rocketblend_config(
 
     if config_data:
         return RocketBlendConfig(
-            platform=config_data.get('platform'),
-            default_build=config_data.get('defaultBuild'),
-            log_level=config_data.get('logLevel'),
-            installations_path=config_data.get('installationsPath'),
-            packages_path=config_data.get('packagesPath'),
-            features=RocketBlendFeatures(**config_data.get('features', {}))
+            platform=config_data.get("platform"),
+            default_build=config_data.get("defaultBuild"),
+            log_level=config_data.get("logLevel"),
+            installations_path=config_data.get("installationsPath"),
+            packages_path=config_data.get("packagesPath"),
+            features=RocketBlendFeatures(**config_data.get("features", {})),
         )
     return None
 
@@ -45,22 +44,22 @@ def load_rocketpack_config(path: str) -> Optional[RocketPack]:
     config_data = load_yaml(os.path.join(path, PACKAGE_CONFIG_FILE))
     if config_data:
         build = None
-        if 'build' in config_data:
-            build_data = config_data['build']
+        if "build" in config_data:
+            build_data = config_data["build"]
             build = Build(
-                args=build_data.get('args'),
-                version=build_data.get('version'),
+                args=build_data.get("args"),
+                version=build_data.get("version"),
                 # sources=build_data.get('Sources'),
                 # addons=build_data.get('Addons')
             )
 
         addon = None
-        if 'addon' in config_data:
-            addon_data = config_data['addon']
+        if "addon" in config_data:
+            addon_data = config_data["addon"]
             addon = Addon(
-                name=addon_data.get('name'),
-                version=addon_data.get('version'),
-                source=addon_data.get('source')
+                name=addon_data.get("name"),
+                version=addon_data.get("version"),
+                source=addon_data.get("source"),
             )
 
         return RocketPack(build=build, addon=addon)
@@ -71,10 +70,11 @@ def load_rocketfile_config(path: str) -> Optional[RocketFile]:
     config_data = load_yaml(os.path.join(path, PROJECT_CONFIG_FILE))
     if config_data:
         return RocketFile(
-            build=config_data.get('build'), 
-            args=config_data.get('args'), 
-            version=config_data.get('version'), 
-            addons=config_data.get('addons'))
+            build=config_data.get("build"),
+            args=config_data.get("args"),
+            version=config_data.get("version"),
+            addons=config_data.get("addons"),
+        )
     return None
 
 

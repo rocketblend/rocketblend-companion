@@ -2,6 +2,7 @@ import json
 import os
 from typing import Any, Dict, Optional
 
+
 def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
     """
     Load a JSON file from the given path.
@@ -12,7 +13,7 @@ def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
     """
     try:
         if os.path.exists(path):
-            with open(path, 'r') as json_data:
+            with open(path, "r") as json_data:
                 return json.load(json_data, object_hook=object_hook)
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON from {path}: {e}")
@@ -20,6 +21,7 @@ def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
         print(f"Unexpected error while reading {path}: {e}")
 
     return {}
+
 
 def save_json(path: str, data: Dict) -> bool:
     """
@@ -30,7 +32,7 @@ def save_json(path: str, data: Dict) -> bool:
     :return: True if the operation was successful, False otherwise.
     """
     try:
-        with open(path, 'w') as f:
+        with open(path, "w") as f:
             json.dump(data, f)
         return True
     except Exception as e:

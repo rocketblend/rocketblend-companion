@@ -8,6 +8,7 @@ from bpy.props import StringProperty
 
 from ....utility import addon
 
+
 class RocketBlend(AddonPreferences):
     bl_idname = addon.name
 
@@ -21,9 +22,11 @@ class RocketBlend(AddonPreferences):
         layout = self.layout
         # layout.prop(self, "installationPath")
 
+
 classes = [
     RocketBlend,
 ]
+
 
 def register():
     for cls in classes:

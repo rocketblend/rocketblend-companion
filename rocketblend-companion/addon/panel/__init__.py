@@ -6,9 +6,11 @@ classes = [
     # project.RKB_PT_panel,
 ]
 
+
 def register():
     for cls in classes:
         register_class(cls)
+
 
 def unregister():
     for cls in reversed(classes):
