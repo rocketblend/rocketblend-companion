@@ -1,9 +1,10 @@
 import os
 import yaml
+
 from typing import Any, Dict, Optional
 
 
-def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
+def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict[Any, Any]:
     """
     Load a YAML file from the given path.
 
@@ -16,7 +17,8 @@ def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
             with open(path, "r") as yaml_data:
                 data = yaml.safe_load(yaml_data)
                 if object_hook:
-                    return object_hook(data)
+                    loaded_json: Dict[Any, Any] = object_hook(data)
+                    return loaded_json
                 return data or {}
     except yaml.YAMLError as e:
         print(f"Error parsing YAML file {path}: {e}")
@@ -26,7 +28,7 @@ def load_yaml(path: str, object_hook: Optional[Any] = None) -> Dict:
     return {}
 
 
-def save_yaml(path: str, data: Dict) -> bool:
+def save_yaml(path: str, data: Dict[Any, Any]) -> bool:
     """
     Save a dictionary to a YAML file.
 

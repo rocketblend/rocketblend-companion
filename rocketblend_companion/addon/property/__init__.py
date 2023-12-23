@@ -9,21 +9,21 @@ from . import preference
 
 
 class runtime(PropertyGroup):
-    build: StringProperty(name="Build", default="Current build reference.")
+    build: StringProperty(name="Build", default="Current build reference.")  # type: ignore
 
-    installationsPath: StringProperty(
+    installationsPath: StringProperty(  # type: ignore
         name="Installations Path",
         default="Path to the installations folder.",
     )
 
-    packagePaths: StringProperty(
+    packagePaths: StringProperty(  # type: ignore
         name="Packages Path",
         description="Path to the packages folder.",
     )
 
 
 class project(PropertyGroup):
-    build: StringProperty(
+    build: StringProperty(  # type: ignore
         name="Build", description="Project build reference (Blender verison to use). "
     )
 

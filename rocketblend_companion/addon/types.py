@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 
 class SemverVersion:
@@ -42,7 +42,7 @@ class RocketFile:
         self.version = version
         self.addons = addons or []
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> Dict[str, Any]:
         """Converts the RocketFile instance to a dictionary."""
         return {
             "build": self.build,

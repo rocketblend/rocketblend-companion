@@ -1,9 +1,9 @@
 import json
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Optional, Dict
 
 
-def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
+def load_json(path: str, object_hook: Optional[Any] = None) -> Dict[Any, Any]:
     """
     Load a JSON file from the given path.
 
@@ -14,7 +14,10 @@ def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
     try:
         if os.path.exists(path):
             with open(path, "r") as json_data:
-                return json.load(json_data, object_hook=object_hook)
+                loaded_json: Dict[Any, Any] = json.load(
+                    json_data, object_hook=object_hook
+                )
+                return loaded_json
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON from {path}: {e}")
     except Exception as e:
@@ -23,7 +26,7 @@ def load_json(path: str, object_hook: Optional[Any] = None) -> Dict:
     return {}
 
 
-def save_json(path: str, data: Dict) -> bool:
+def save_json(path: str, data: Dict[Any, Any]) -> bool:
     """
     Save a dictionary to a JSON file.
 

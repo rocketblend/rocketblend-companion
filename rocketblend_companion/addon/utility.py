@@ -1,9 +1,9 @@
 import os
 
-from typing import Optional
+from typing import Optional, cast
 from ..utility.yaml import load_yaml, save_yaml
 from ..utility.json import load_json
-from . import (
+from .types import (
     RocketBlendConfig,
     RocketPack,
     RocketFile,
@@ -70,7 +70,7 @@ def load_rocketfile_config(path: str) -> Optional[RocketFile]:
     config_data = load_yaml(os.path.join(path, PROJECT_CONFIG_FILE))
     if config_data:
         return RocketFile(
-            build=config_data.get("build"),
+            build=cast(str, config_data.get("build")),
             args=config_data.get("args"),
             version=config_data.get("version"),
             addons=config_data.get("addons"),

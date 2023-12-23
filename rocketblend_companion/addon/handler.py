@@ -7,10 +7,10 @@ from . import utility
 
 
 @persistent
-def load_handler(_) -> None:
+def load_handler(_):
     bpy.ops.rkb.load()
 
 
 @persistent
-def rocketfile_save_handler(_) -> None:
+def rocketfile_save_handler(_):
     bpy.ops.rkb.save()

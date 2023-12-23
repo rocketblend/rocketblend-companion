@@ -3,7 +3,7 @@ from bpy.utils import register_class, unregister_class
 from . import project
 
 classes = [
-    # project.RKB_PT_panel,
+    project.RKB_PT_panel,
 ]
 
 

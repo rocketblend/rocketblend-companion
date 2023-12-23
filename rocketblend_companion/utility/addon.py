@@ -13,10 +13,10 @@ def preference():
     return bpy.context.preferences.addons[name].preferences
 
 
-def rkb():
-    wm = bpy.context.window_manager
+# def rkb():
+#     wm = bpy.context.window_manager
 
-    if hasattr(wm, "rkb"):
-        return bpy.context.preferences.addons[wm.rkb.addon].preferences
+#     if hasattr(wm, "rkb"):
+#         return bpy.context.preferences.addons[wm.rkb.addon].preferences
 
-    return False
+#     return False
