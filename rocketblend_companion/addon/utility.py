@@ -83,5 +83,4 @@ def load_rocketfile_config(path: str) -> Optional[RocketFile]:
 
 
 def save_rocketfile_config(path: str, config: RocketFile) -> None:
-    # Save the dictionary as a YAML file
     save_yaml(os.path.join(path, PROJECT_CONFIG_FILE), config.to_dict())

@@ -25,11 +25,11 @@ if bl_info["blender"] > bpy.app.version:
 from . import addon
 
 
-def register():
+def register() -> None:
     addon.register()
 
 
-def unregister():
+def unregister() -> None:
     addon.unregister()
 
 

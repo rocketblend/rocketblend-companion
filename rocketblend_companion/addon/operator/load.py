@@ -46,6 +46,10 @@ class RKB_OT_load(bpy.types.Operator):
             return {"CANCELLED"}
 
         bpy.context.window_manager.rkb.build = build_reference
+        bpy.context.window_manager.rkb.installations_path = (
+            rocketblend_config.installations_path
+        )
+        bpy.context.window_manager.rkb.packages_path = rocketblend_config.packages_path
 
         rocketfile = utility.load_rocketfile_config(bpy.path.abspath("//"))
         if not rocketfile:

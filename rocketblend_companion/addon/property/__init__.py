@@ -11,12 +11,12 @@ from . import preference
 class runtime(PropertyGroup):
     build: StringProperty(name="Build", default="Current build reference.")  # type: ignore
 
-    installationsPath: StringProperty(  # type: ignore
+    installations_path: StringProperty(  # type: ignore
         name="Installations Path",
         default="Path to the installations folder.",
     )
 
-    packagePaths: StringProperty(  # type: ignore
+    package_paths: StringProperty(  # type: ignore
         name="Packages Path",
         description="Path to the packages folder.",
     )
