@@ -10,13 +10,23 @@ from . import preference
 class runtime(PropertyGroup):
     build: StringProperty(
         name="Build",
-        default="Current build."
+        default="Current build reference."
+    )
+
+    installationsPath: StringProperty(
+        name="Installations Path",
+        default="Path to the installations folder.",
+    )
+
+    packagePaths: StringProperty(
+        name="Packages Path",
+        description="Path to the packages folder.",
     )
 
 class project(PropertyGroup):
     build: StringProperty(
         name="Build",
-        description="Blender verison to use. Requires restart to take effect."
+        description="Project build reference (Blender verison to use). "
     )
 
 classes = [
