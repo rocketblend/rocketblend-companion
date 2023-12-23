@@ -1,10 +1,16 @@
 import os
-import json
 
 from typing import Optional
 from ..utility.yaml import load_yaml, save_yaml
 from ..utility.json import load_json
-from . import RocketBlendConfig, RocketPack, RocketFile, Build, Addon, RocketBlendFeatures
+from . import (
+    RocketBlendConfig,
+    RocketPack,
+    RocketFile,
+    Build,
+    Addon,
+    RocketBlendFeatures
+)
 
 PROJECT_CONFIG_FILE = "rocketfile.yaml"
 PACKAGE_CONFIG_FILE = "rocketpack.yaml"
@@ -12,7 +18,9 @@ PACKAGE_CONFIG_FILE = "rocketpack.yaml"
 ROCKETBLEND_APP_NAME = "rocketblend"
 ROCKETBLEND_CONFIG_FILE = "settings.json"
 
-def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfig]:
+
+def load_rocketblend_config(
+        dev_mode: bool = False) -> Optional[RocketBlendConfig]:
     user_config_dir = os.path.expanduser('~/.config')
     app_dir = os.path.join(user_config_dir, ROCKETBLEND_APP_NAME)
     if dev_mode:
@@ -31,6 +39,7 @@ def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfi
             features=RocketBlendFeatures(**config_data.get('features', {}))
         )
     return None
+
 
 def load_rocketpack_config(path: str) -> Optional[RocketPack]:
     config_data = load_yaml(os.path.join(path, PACKAGE_CONFIG_FILE))
@@ -57,6 +66,7 @@ def load_rocketpack_config(path: str) -> Optional[RocketPack]:
         return RocketPack(build=build, addon=addon)
     return None
 
+
 def load_rocketfile_config(path: str) -> Optional[RocketFile]:
     config_data = load_yaml(os.path.join(path, PROJECT_CONFIG_FILE))
     if config_data:
@@ -67,6 +77,7 @@ def load_rocketfile_config(path: str) -> Optional[RocketFile]:
             addons=config_data.get('addons'))
     return None
 
+
 def save_rocketfile_config(path: str, config: RocketFile) -> None:
     # Save the dictionary as a YAML file
-    save_yaml(os.path.join(path, PROJECT_CONFIG_FILE), config_dict.to_dict())
+    save_yaml(os.path.join(path, PROJECT_CONFIG_FILE), config.to_dict())
