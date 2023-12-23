@@ -19,6 +19,10 @@ ROCKETBLEND_APP_NAME = "rocketblend"
 ROCKETBLEND_CONFIG_FILE = "settings.json"
 
 
+def is_none_or_whitespace(s: str | None) -> bool:
+    return s is None or not s.strip()
+
+
 def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfig]:
     user_config_dir = os.path.expanduser("~/.config")
     app_dir = os.path.join(user_config_dir, ROCKETBLEND_APP_NAME)
