@@ -39,8 +39,8 @@ def load_rocketpack_config(path: str) -> Optional[RocketPack]:
         if 'build' in config_data:
             build_data = config_data['build']
             build = Build(
-                args=build_data.get('Args'),
-                version=build_data.get('Version'),
+                args=build_data.get('args'),
+                version=build_data.get('version'),
                 # sources=build_data.get('Sources'),
                 # addons=build_data.get('Addons')
             )
@@ -49,9 +49,9 @@ def load_rocketpack_config(path: str) -> Optional[RocketPack]:
         if 'addon' in config_data:
             addon_data = config_data['addon']
             addon = Addon(
-                name=addon_data.get('Name'),
-                version=addon_data.get('Version'),
-                source=addon_data.get('Source')
+                name=addon_data.get('name'),
+                version=addon_data.get('version'),
+                source=addon_data.get('source')
             )
 
         return RocketPack(build=build, addon=addon)
