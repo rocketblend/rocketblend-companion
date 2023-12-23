@@ -10,7 +10,7 @@ bl_info = {
 	'license': 'GPL',
 	'version': (0, 1, 1),
 	'blender': (2, 83, 0),
-	'location': 'System > RocketBlend > Core',
+	'location': 'System > RocketBlend > Companion',
 	'category': 'System'
 }
 

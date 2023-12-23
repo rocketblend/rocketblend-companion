@@ -13,7 +13,7 @@ class RKB_OT_save(bpy.types.Operator):
 
     def execute(self, context):
         rocketfile = bpy.context.window_manager.rkf
-        utility.save_rocketfile_json(bpy.path.abspath("//"), rocketfile.build, rocketfile.args)
+        utility.save_rocketfile_config(bpy.path.abspath("//"), rocketfile.build)
 
         self.report({'INFO'}, "Saved rocketfile")
 

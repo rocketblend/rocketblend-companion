@@ -13,12 +13,12 @@ class RKB_OT_load(bpy.types.Operator):
     bl_label = "Loader"
 
     def execute(self, context):
-        build = utility.load_build_json(Path(bpy.app.binary_path).resolve().parent.parent)
+        build = utility.load_build_config(Path(bpy.app.binary_path).resolve().parent.parent)
 
         bpy.context.window_manager.rkb.reference = build.get("reference", "unknown")
         bpy.context.window_manager.rkb.args = build.get("args", "")
 
-        rocketfile = utility.load_rocketfile_json(bpy.path.abspath("//"))
+        rocketfile = utility.load_rocketfile_config(bpy.path.abspath("//"))
 
         bpy.context.window_manager.rkf.build = rocketfile.get("build", bpy.context.window_manager.rkb.reference)
         bpy.context.window_manager.rkf.args = rocketfile.get("args", "")
