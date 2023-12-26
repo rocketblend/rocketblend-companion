@@ -36,7 +36,8 @@ class RKB_OT_load(bpy.types.Operator):
         build_reference = (
             str(current_exec_path)
             .replace(rocketblend_config.installations_path, "")  # type: ignore
-            .lstrip("\\")
+            .replace("\\", "/")
+            .lstrip("/")
         )
 
         if utility.is_none_or_whitespace(rocketblend_config.packages_path):
@@ -51,6 +52,13 @@ class RKB_OT_load(bpy.types.Operator):
         # if not runtime_config:
         #     self.report({"ERROR"}, "Runtime package configuration not found.")
         #     return {"CANCELLED"}
+
+        rocketblend_version = utility.get_rocketblend_version()
+        if not rocketblend_version:
+            self.report({"ERROR"}, "RocketBlend version not found.")
+            return {"CANCELLED"}
+
+        bpy.context.window_manager.rkb.version = rocketblend_version
 
         bpy.context.window_manager.rkb.build = build_reference
         bpy.context.window_manager.rkb.installations_path = (
@@ -68,10 +76,10 @@ class RKB_OT_load(bpy.types.Operator):
 
         bpy.context.window_manager.rkf.build = rocketfile.build
 
-        # if bpy.context.window_manager.rkb.build != bpy.context.window_manager.rkf.build:
-        #     self.report(
-        #         {"ERROR"},
-        #         "This project is not compatible with the current build (RocketBlend)",
-        #     )
+        if bpy.context.window_manager.rkb.build != bpy.context.window_manager.rkf.build:
+            self.report(
+                {"ERROR"},
+                "This project is not compatible with the current build (RocketBlend)",
+            )
 
         return {"FINISHED"}

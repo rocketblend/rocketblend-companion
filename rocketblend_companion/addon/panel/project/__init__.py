@@ -1,5 +1,10 @@
+import bpy
+import os
+
 from bpy.utils import register_class, unregister_class
 from bpy.types import Panel
+
+from ... import utility
 
 PANEL_CATEGORY = "Rocketblend"
 
@@ -15,39 +20,29 @@ class RKB_PT_panel(Panel):
         layout = self.layout
         wm = context.window_manager
 
-        row = layout.row()
-        row.operator(
+        if utility.is_none_or_whitespace(wm.rkb.version):
+            layout.label(text="RocketBlend is not installed.", icon="ERROR")
+            return
+
+        layout.label(text=f"Version: {wm.rkb.version}", icon="INFO")
+
+        layout.separator()
+
+        layout.operator(
             "rkb.explore", text="Explore Config Directory", icon="FILE_FOLDER"
         ).path = wm.rkb.config_path
 
-        row = layout.row()
-        row.operator(
+        layout.operator(
             "rkb.explore", text="Explore Installations Directory", icon="FILE_FOLDER"
         ).path = wm.rkb.installations_path
 
-        row = layout.row()
-        row.operator(
+        layout.operator(
             "rkb.explore", text="Explore Packages Directory", icon="FILE_FOLDER"
         ).path = wm.rkb.packages_path
 
         layout.separator()
 
         layout.operator("rkb.load", text="Refresh", icon="FILE_REFRESH")
-
-
-class RKB_PT_runtime_panel(Panel):
-    bl_label = "Runtime"
-    bl_idname = "RKB_PT_runtime_panel"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = PANEL_CATEGORY
-
-    def draw(self, context):
-        layout = self.layout
-        wm = context.window_manager
-
-        col = layout.column(align=True)
-        col.prop(wm.rkb, "build", text="Build", emboss=False)
 
 
 class RKB_PT_project_panel(Panel):
@@ -61,11 +56,34 @@ class RKB_PT_project_panel(Panel):
         layout = self.layout
         wm = context.window_manager
 
-        col = layout.column(align=True)
-        col.prop(wm.rkf, "build", text="Build", emboss=False)
+        error = False
+        if utility.is_none_or_whitespace(wm.rkf.build):
+            error = True
+            layout.label(text="Project build not found!", icon="ERROR")
+
+        if utility.is_none_or_whitespace(wm.rkb.build):
+            error = True
+            layout.label(text="Current build not found!", icon="ERROR")
+
+        if wm.rkb.build != wm.rkf.build:
+            error = True
+            layout.label(
+                text="This project is not compatible with the current build!",
+                icon="ERROR",
+            )
+            layout.prop(wm.rkf, "build", text="Want", emboss=False)
+            layout.prop(wm.rkb, "build", text="Have", emboss=False)
+
+        if error:
+            return
+
+        layout.prop(wm.rkf, "build", text="Current Build", emboss=False)
+        layout.operator(
+            "rkb.explore", text="Explore Project Directory", icon="FILE_FOLDER"
+        ).path = os.path.dirname(bpy.data.filepath)
 
 
-classes = [RKB_PT_panel, RKB_PT_project_panel, RKB_PT_runtime_panel]
+classes = [RKB_PT_panel, RKB_PT_project_panel]
 
 
 def register():

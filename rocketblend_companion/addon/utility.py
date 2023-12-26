@@ -3,7 +3,7 @@ import platform
 import sys
 import subprocess
 
-from typing import Optional, cast
+from typing import Optional, Tuple, List, cast
 from ..utility.yaml import load_yaml, save_yaml
 from ..utility.json import load_json
 from .types import (
@@ -51,6 +51,13 @@ def get_rocketblend_config_dir(dev_mode: bool = False) -> str:
 
 def get_rocketblend_config_path(dev_mode: bool = False) -> str:
     return os.path.join(get_rocketblend_config_dir(dev_mode), ROCKETBLEND_CONFIG_FILE)
+
+
+def get_rocketblend_version() -> Optional[str]:
+    success, output = run_command("rocketblend", ["--version"])
+    if success:
+        return output
+    return None
 
 
 def is_none_or_whitespace(s: str | None) -> bool:
@@ -121,3 +128,28 @@ def open_in_file_explorer(path: str) -> None:
         subprocess.Popen(["open", path])
     else:  # linux variants
         subprocess.Popen(["xdg-open", path])
+
+
+def run_command(command: str, args: Optional[List[str]] = None) -> Tuple[bool, str]:
+    """
+    Runs a command using subprocess and returns the status and output.
+
+    :param command: The command to execute.
+    :param args: A list of arguments for the command.
+    :return: A tuple containing a boolean indicating success, and the command output or error message.
+    """
+    if args is None:
+        args = []
+
+    try:
+        result = subprocess.run(
+            [command] + args, check=True, text=True, capture_output=True
+        )
+        return True, result.stdout
+    except subprocess.CalledProcessError as e:
+        return False, "Error: " + str(e)
+    except FileNotFoundError:
+        return (
+            False,
+            f"Command '{command}' not found. Ensure it's installed and in your PATH.",
+        )

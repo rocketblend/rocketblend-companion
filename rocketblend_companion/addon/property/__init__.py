@@ -26,6 +26,11 @@ class runtime(PropertyGroup):
         description="Path to RocketBlends config folder.",
     )
 
+    version: StringProperty(  # type: ignore
+        name="Version",
+        description="Version of RocketBlend that is currently installed.",
+    )
+
 
 class project(PropertyGroup):
     build: StringProperty(  # type: ignore
