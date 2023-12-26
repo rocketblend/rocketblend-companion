@@ -13,8 +13,8 @@ class RocketBlend(AddonPreferences):
     bl_idname = addon.name
 
     dev_mode: BoolProperty(  # type: ignore
-        name="Dev Mode",
-        description="Enable development mode (Will use dev RocketBlend config).",
+        name="Development Mode",
+        description="Enable development mode.",
         default=False,
     )
 
