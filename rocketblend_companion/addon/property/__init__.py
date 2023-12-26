@@ -16,9 +16,14 @@ class runtime(PropertyGroup):
         default="Path to the installations folder.",
     )
 
-    package_paths: StringProperty(  # type: ignore
+    packages_path: StringProperty(  # type: ignore
         name="Packages Path",
         description="Path to the packages folder.",
+    )
+
+    config_path: StringProperty(  # type: ignore
+        name="Config Path",
+        description="Path to RocketBlends config folder.",
     )
 
 

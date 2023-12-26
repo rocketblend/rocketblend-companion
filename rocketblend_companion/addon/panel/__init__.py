@@ -4,14 +4,16 @@ from . import project
 
 classes = [
     project.RKB_PT_panel,
+    project.RKB_PT_project_panel,
+    project.RKB_PT_runtime_panel,
 ]
 
 
-def register():
+def register() -> None:
     for cls in classes:
         register_class(cls)
 
 
-def unregister():
+def unregister() -> None:
     for cls in reversed(classes):
         unregister_class(cls)

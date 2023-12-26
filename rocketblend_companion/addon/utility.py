@@ -1,5 +1,7 @@
 import os
 import platform
+import sys
+import subprocess
 
 from typing import Optional, cast
 from ..utility.yaml import load_yaml, save_yaml
@@ -38,17 +40,24 @@ def get_user_config_dir() -> str:
         return os.path.expanduser("~/.config")
 
 
-def is_none_or_whitespace(s: str | None) -> bool:
-    return s is None or not s.strip()
-
-
-def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfig]:
+def get_rocketblend_config_dir(dev_mode: bool = False) -> str:
     user_config_dir = get_user_config_dir()
     app_dir = os.path.join(user_config_dir, ROCKETBLEND_APP_NAME)
     if dev_mode:
         app_dir = os.path.join(app_dir, "dev")
 
-    config_path = os.path.join(app_dir, ROCKETBLEND_CONFIG_FILE)
+    return app_dir
+
+
+def get_rocketblend_config_path(dev_mode: bool = False) -> str:
+    return os.path.join(get_rocketblend_config_dir(dev_mode), ROCKETBLEND_CONFIG_FILE)
+
+
+def is_none_or_whitespace(s: str | None) -> bool:
+    return s is None or not s.strip()
+
+
+def load_rocketblend_config(config_path: str) -> Optional[RocketBlendConfig]:
     config_data = load_json(config_path)
 
     if config_data:
@@ -103,3 +112,12 @@ def load_rocketfile_config(path: str) -> Optional[RocketFile]:
 
 def save_rocketfile_config(path: str, config: RocketFile) -> None:
     save_yaml(os.path.join(path, PROJECT_CONFIG_FILE), config.to_dict())
+
+
+def open_in_file_explorer(path: str) -> None:
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":  # macOS
+        subprocess.Popen(["open", path])
+    else:  # linux variants
+        subprocess.Popen(["xdg-open", path])
