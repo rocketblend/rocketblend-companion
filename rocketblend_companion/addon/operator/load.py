@@ -20,30 +20,33 @@ class RKB_OT_load(bpy.types.Operator):
 
         rocketblend_config = utility.load_rocketblend_config(True)
         if not rocketblend_config:
-            self.report({"ERROR"}, "RocketBlend configurations not found.")
+            self.report({"ERROR"}, "RocketBlend configuration not found.")
             return {"CANCELLED"}
 
         if utility.is_none_or_whitespace(rocketblend_config.installations_path):
-            self.report({"ERROR"}, "RocketBlend configurations not found.")
+            self.report({"ERROR"}, "RocketBlend installation path not found.")
             return {"CANCELLED"}
 
         current_exec_path = Path(bpy.app.binary_path).resolve().parent.parent
 
-        build_reference = str(current_exec_path).replace(
-            rocketblend_config.installations_path, ""  # type: ignore
+        build_reference = (
+            str(current_exec_path)
+            .replace(rocketblend_config.installations_path, "")  # type: ignore
+            .lstrip("\\")
         )
 
-        if utility.is_none_or_whitespace(rocketblend_config.packages_path):
-            self.report({"ERROR"}, "RocketPack configurations not found.")
-            return {"CANCELLED"}
+        # if utility.is_none_or_whitespace(rocketblend_config.packages_path):
+        #     self.report({"ERROR"}, "Rocketblend package path not found.")
+        #     return {"CANCELLED"}
 
-        runtime_config = utility.load_rocketpack_config(
-            str(Path(rocketblend_config.packages_path) / build_reference)  # type: ignore
-        )
+        # runtime_config_path = str(
+        #     Path(rocketblend_config.packages_path) / build_reference  # type: ignore
+        # )
+        # runtime_config = utility.load_rocketpack_config(runtime_config_path)
 
-        if not runtime_config:
-            self.report({"ERROR"}, "RocketPack configurations not found.")
-            return {"CANCELLED"}
+        # if not runtime_config:
+        #     self.report({"ERROR"}, "Runtime package configuration not found.")
+        #     return {"CANCELLED"}
 
         bpy.context.window_manager.rkb.build = build_reference
         bpy.context.window_manager.rkb.installations_path = (
@@ -53,7 +56,7 @@ class RKB_OT_load(bpy.types.Operator):
 
         rocketfile = utility.load_rocketfile_config(bpy.path.abspath("//"))
         if not rocketfile:
-            self.report({"ERROR"}, "RocketFile configurations not found.")
+            self.report({"ERROR"}, "Project configuration not found.")
             return {"CANCELLED"}
 
         bpy.context.window_manager.rkf.build = rocketfile.build

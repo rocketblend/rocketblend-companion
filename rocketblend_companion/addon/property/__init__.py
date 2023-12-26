@@ -31,7 +31,7 @@ class project(PropertyGroup):
 classes = [runtime, project]
 
 
-def register():
+def register() -> None:
     for cls in classes:
         register_class(cls)
 
@@ -39,7 +39,7 @@ def register():
     bpy.types.WindowManager.rkf = PointerProperty(type=project)
 
 
-def unregister():
+def unregister() -> None:
     del bpy.types.WindowManager.rkf
     del bpy.types.WindowManager.rkb
 

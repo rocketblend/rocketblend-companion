@@ -1,4 +1,5 @@
 import os
+import platform
 
 from typing import Optional, cast
 from ..utility.yaml import load_yaml, save_yaml
@@ -19,12 +20,30 @@ ROCKETBLEND_APP_NAME = "rocketblend"
 ROCKETBLEND_CONFIG_FILE = "settings.json"
 
 
+def get_user_config_dir() -> str:
+    """
+    Get the platform-independent user configuration directory.
+    Should return the same as golangs os.UserConfigDir().
+
+    Returns:
+        str: The path to the user configuration directory.
+    """
+    system = platform.system()
+
+    if system == "Windows":
+        return os.getenv("APPDATA", os.path.expanduser("~"))
+    elif system == "Darwin":  # macOS
+        return os.path.join(os.path.expanduser("~"), "Library", "Application Support")
+    else:  # Linux and other UNIX-like systems
+        return os.path.expanduser("~/.config")
+
+
 def is_none_or_whitespace(s: str | None) -> bool:
     return s is None or not s.strip()
 
 
 def load_rocketblend_config(dev_mode: bool = False) -> Optional[RocketBlendConfig]:
-    user_config_dir = os.path.expanduser("~/.config")
+    user_config_dir = get_user_config_dir()
     app_dir = os.path.join(user_config_dir, ROCKETBLEND_APP_NAME)
     if dev_mode:
         app_dir = os.path.join(app_dir, "dev")
