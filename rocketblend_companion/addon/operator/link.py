@@ -5,6 +5,8 @@ from .. import utility
 
 
 class RKB_OT_link(bpy.types.Operator):
+    """Open a link in your browser"""
+
     bl_idname = "rkb.link"
     bl_label = "Open a link in your browser"
 
