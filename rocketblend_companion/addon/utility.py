@@ -2,6 +2,9 @@ import os
 import platform
 import sys
 import subprocess
+import webbrowser
+import bpy
+import addon_utils
 
 from typing import Optional, Tuple, List, cast
 from ..utility.yaml import load_yaml, save_yaml
@@ -14,6 +17,8 @@ from .types import (
     Addon,
     RocketBlendFeatures,
 )
+
+ADDON_IDENTIFIER = "RocketBlend Companion"
 
 PROJECT_CONFIG_FILE = "rocketfile.yaml"
 PACKAGE_CONFIG_FILE = "rocketpack.yaml"
@@ -38,6 +43,20 @@ def get_user_config_dir() -> str:
         return os.path.join(os.path.expanduser("~"), "Library", "Application Support")
     else:  # Linux and other UNIX-like systems
         return os.path.expanduser("~/.config")
+
+
+def get_addon_version() -> str:
+    """
+    Gets the version of the specified addon using its identifier.
+
+    :return: A string representation of the addon version.
+    """
+
+    for addon in addon_utils.modules():
+        if addon.bl_info.get("name") == ADDON_IDENTIFIER:
+            version = addon.bl_info.get("version", (0, 0, 0))
+            return ".".join(map(str, version))
+    return "Unknown"
 
 
 def get_rocketblend_config_dir(dev_mode: bool = False) -> str:
@@ -153,3 +172,12 @@ def run_command(command: str, args: Optional[List[str]] = None) -> Tuple[bool, s
             False,
             f"Command '{command}' not found. Ensure it's installed and in your PATH.",
         )
+
+
+def open_in_browser(url: str) -> None:
+    """
+    Opens a url in the default browser.
+
+    :param url: The url to open.
+    """
+    webbrowser.open(url)

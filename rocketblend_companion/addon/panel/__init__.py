@@ -4,6 +4,7 @@ from . import project
 
 classes = [
     project.RKB_PT_panel,
+    project.RKB_PT_companion_panel,
     project.RKB_PT_project_panel,
 ]
 

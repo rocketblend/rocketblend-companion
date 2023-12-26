@@ -6,7 +6,7 @@ from bpy.types import Panel
 
 from ... import utility
 
-PANEL_CATEGORY = "Rocketblend"
+PANEL_CATEGORY = "RocketBlend"
 
 
 class RKB_PT_panel(Panel):
@@ -25,6 +25,16 @@ class RKB_PT_panel(Panel):
             return
 
         layout.label(text=f"Version: {wm.rkb.version}", icon="INFO")
+
+        layout.separator()
+
+        layout.operator(
+            "rkb.link", text="Open Documentation", icon="DOCUMENTS"
+        ).url = "https://docs.rocketblend.io"
+
+        layout.operator(
+            "rkb.link", text="Open Github", icon="DOCUMENTS"
+        ).url = "https://github.com/rocketblend/rocketblend"
 
         layout.separator()
 
@@ -83,7 +93,32 @@ class RKB_PT_project_panel(Panel):
         ).path = os.path.dirname(bpy.data.filepath)
 
 
-classes = [RKB_PT_panel, RKB_PT_project_panel]
+class RKB_PT_companion_panel(Panel):
+    bl_label = "Companion"
+    bl_idname = "RKB_PT_companion_panel"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = PANEL_CATEGORY
+
+    def draw(self, context):
+        layout = self.layout
+        wm = context.window_manager
+
+        addon_version = utility.get_addon_version()
+        layout.label(text=f"Version: {addon_version}", icon="INFO")
+
+        layout.separator()
+
+        layout.operator(
+            "rkb.link", text="Open Documentation", icon="DOCUMENTS"
+        ).url = "https://docs.rocketblend.io/v/companion"
+
+        layout.operator(
+            "rkb.link", text="Open Github", icon="DOCUMENTS"
+        ).url = "https://github.com/rocketblend/rocketblend-companion"
+
+
+classes = [RKB_PT_panel, RKB_PT_project_panel, RKB_PT_companion_panel]
 
 
 def register():

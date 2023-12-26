@@ -1,11 +1,11 @@
 from bpy.utils import register_class, unregister_class
 
-from . import load, explore
+from . import load, explore, link
 
 classes = [
     load.RKB_OT_load,
     explore.RKB_OT_explore,
-    # save.RKB_OT_save,
+    link.RKB_OT_link,
 ]
 
 
