@@ -8,7 +8,7 @@ bl_info = {
     "description": "Various tools to aid working with RocketBlend",
     "author": "RocketBlend",
     "license": "GPL",
-    "version": (0, 1, 1),
+    "version": (0, 2, 0),
     "blender": (2, 83, 0),
     "location": "System > RocketBlend > Companion",
     "category": "System",
