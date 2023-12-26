@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 class RKB_OT_load(bpy.types.Operator):
-    """Loads all the configurations for the current project"""
+    """Loads all the RocketBlend configuration data."""
 
     bl_idname = "rkb.load"
     bl_label = "Reload RocketBlend Configurations"
