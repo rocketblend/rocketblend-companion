@@ -9,8 +9,8 @@ path = new_type(default=lambda new: os.path.abspath(os.path.join(__file__, "..",
 path.icon = os.path.join(path(), "addon", "icons")
 
 
-def preference():
-    return bpy.context.preferences.addons[name].preferences
+# def preference():
+#     return bpy.context.preferences.addons[name].preferences
 
 
 # def rkb():

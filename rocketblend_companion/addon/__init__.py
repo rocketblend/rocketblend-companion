@@ -3,7 +3,7 @@ from . import panel, operator, property, handler
 
 
 def register() -> None:
-    # property.preference.register()
+    property.preference.register()
     property.register()
 
     operator.register()
@@ -21,4 +21,4 @@ def unregister() -> None:
     operator.unregister()
 
     property.unregister()
-    # property.preference.unregister()
+    property.preference.unregister()

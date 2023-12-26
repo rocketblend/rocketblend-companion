@@ -26,6 +26,12 @@ deactivate:
 install: $(VENV)/bin/activate
 	$(VENV)/bin/pip install -r requirements.txt
 
+## save-requirements: Save the current environment's packages to requirements.txt.
+.PHONY: save-requirements
+save-requirements:
+	@echo "Saving current packages to requirements.txt..."
+	@$(VENV)/bin/pip freeze > requirements.txt
+
 $(VENV)/bin/activate: requirements.txt
 	test -d $(VENV) || python3 -m venv $(VENV)
 	$(VENV)/bin/pip install -U pip

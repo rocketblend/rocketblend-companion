@@ -6,6 +6,8 @@ from pathlib import Path
 
 from .. import utility
 
+from ...utility import addon
+
 import logging
 
 log = logging.getLogger(__name__)
@@ -21,7 +23,9 @@ class RKB_OT_load(bpy.types.Operator):
     def execute(self, context):
         log.info("Loading RocketBlend configurations...")
 
-        rocketblend_config_path = utility.get_rocketblend_config_path(True)
+        dev_mode = bpy.context.preferences.addons[addon.name].preferences.dev_mode
+
+        rocketblend_config_path = utility.get_rocketblend_config_path(dev_mode)
         rocketblend_config = utility.load_rocketblend_config(rocketblend_config_path)
         if not rocketblend_config:
             self.report({"ERROR"}, "RocketBlend configuration not found.")

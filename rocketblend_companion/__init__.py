@@ -1,6 +1,7 @@
 import bpy
 import os
 import json
+
 from bpy.app.handlers import persistent
 
 bl_info = {
